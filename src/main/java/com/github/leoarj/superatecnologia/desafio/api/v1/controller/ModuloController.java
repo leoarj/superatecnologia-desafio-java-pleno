@@ -1,7 +1,7 @@
-package com.github.leoarj.superatecnologia.desafio.controller;
+package com.github.leoarj.superatecnologia.desafio.api.v1.controller;
 
 import com.github.leoarj.superatecnologia.desafio.api.v1.model.ModuloResponse;
-import com.github.leoarj.superatecnologia.desafio.assembler.ModuloResponseAssembler;
+import com.github.leoarj.superatecnologia.desafio.api.v1.assembler.ModuloResponseAssembler;
 import com.github.leoarj.superatecnologia.desafio.domain.service.ModuloService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

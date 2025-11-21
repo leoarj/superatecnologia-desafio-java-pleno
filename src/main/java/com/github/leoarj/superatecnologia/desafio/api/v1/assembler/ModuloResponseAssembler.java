@@ -1,4 +1,4 @@
-package com.github.leoarj.superatecnologia.desafio.assembler;
+package com.github.leoarj.superatecnologia.desafio.api.v1.assembler;
 
 import com.github.leoarj.superatecnologia.desafio.api.v1.model.ModuloResponse;
 import com.github.leoarj.superatecnologia.desafio.domain.model.Modulo;
