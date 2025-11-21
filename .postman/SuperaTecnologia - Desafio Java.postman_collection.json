@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "735f272f-e368-454d-9e7d-9cb50d0b7433",
+		"name": "SuperaTecnologia - Desafio Java",
+		"description": "Collection de API para teste técnico para a Supera Tecnologia.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30781350"
+	},
+	"item": [
+		{
+			"name": "Módulos",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/v1/temperatures",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"v1",
+								"temperatures"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8082"
+		}
+	]
+}
