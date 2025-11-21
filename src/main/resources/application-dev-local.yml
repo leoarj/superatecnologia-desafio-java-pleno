@@ -1,0 +1,15 @@
+# Profile para execução do app fora de container mas aproveitando o ferramental (Dependências) via Docker Compose.
+
+# Verificar as seguintes variáveis de ambiente do ".env.dev" e atualizar aqui se necessário:
+# POSTGRES_PASSWORD
+# POSTGRES_DB
+# POSTGRES_USER
+# POSTGRES_PORT
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/superatecnologia-desafio
+    username: postgres
+    password: 123456
+server:
+  port: 8082
