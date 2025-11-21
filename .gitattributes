@@ -1,0 +1,28 @@
+# Normalizar tudo automaticamente
+* text=auto
+
+# Forçar LF para scripts e configs sensíveis
+*.sh text eol=lf
+/mvnw text eol=lf
+
+# Forçar CRLF para scripts de Windows
+*.cmd text eol=crlf
+
+# Forçar LF para arquivos de código e configs
+*.yml text eol=lf
+*.yaml text eol=lf
+*.java text eol=lf
+*.gradle text eol=lf
+*.properties text eol=lf
+*.md text eol=lf
+
+# Marcar binários para evitar diffs
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.jar binary
+*.vpp binary
