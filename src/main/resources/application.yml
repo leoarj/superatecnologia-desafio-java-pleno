@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: algaworks-idk-devcontainers-examples-meteorology
+
+  # Não definidos valores alternativos para as variáveis (${VARIAVEL:VALOR_ALTERNATIVO}),
+  # para não serem utilizados indevidamente em PRODUÇÃO caso as variáveis não sejam definidas no ambiente.
+  # Garante erro em PRODUÇÃO caso não sejam definidas.
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    # Para utilizar schema que não seja o public (multitenancy, compartilhamento)
+    # https://jdbc.postgresql.org/documentation/use/#connection-parameters
+    # url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?currentSchema=${SCHEMA_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+    hibernate:
+      ddl-auto: validate  # recomendado quando usar Flyway
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    # Quanto utiliza um schema diferente do public
+    # schemas: ${SCHEMA_NAME}
+    baseline-on-migrate: true
+
+  # Para agrupar perfis
+  profiles:
+    group:
+      # Se carregar dev-local o dev também é carregado
+      dev-local:
+        - dev
