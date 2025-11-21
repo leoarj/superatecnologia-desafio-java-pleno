@@ -3,7 +3,7 @@
 CREATE TABLE public.usuario
 (
     id bigserial NOT NULL,
-    departamento_id bigserial NOT NULL,
+    departamento_id bigint NOT NULL,
     nome character varying(60) NOT NULL,
     email character varying(255) NOT NULL,
     hash_senha character varying(255) NOT NULL,

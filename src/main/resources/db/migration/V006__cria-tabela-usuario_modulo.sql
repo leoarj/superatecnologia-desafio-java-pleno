@@ -2,14 +2,14 @@
 
 CREATE TABLE public.usuario_modulo
 (
-    usuario_id bigserial NOT NULL,
-    modulo_id bigserial NOT NULL,
+    usuario_id bigint NOT NULL,
+    modulo_id bigint NOT NULL,
 
     CONSTRAINT pk_usuario_modulo PRIMARY KEY (usuario_id, modulo_id),
     CONSTRAINT fk_usuario_modulo_usuario FOREIGN KEY (usuario_id)
-        REFERENCES public.usuario (id),
+        REFERENCES public.usuario (id) ON DELETE CASCADE,
     CONSTRAINT fk_usuario_modulo_modulo FOREIGN KEY (modulo_id)
-            REFERENCES public.modulo (id)
+            REFERENCES public.modulo (id) ON DELETE CASCADE
 );
 
 COMMENT ON TABLE public.usuario_modulo
