@@ -21,8 +21,11 @@ public class Modulo {
     private String descricao;
 
     @Column(nullable = false)
-    private boolean ativo;
+    private Boolean ativo = true;
 
     @Column(nullable = false)
-    private  boolean disponivel;
+    private Boolean disponivel = true;
+
+    // TODO: Criar relacionamento com Departamentos
+    // TODO: Criar relacionamento com Módulos incompatíveis
 }
