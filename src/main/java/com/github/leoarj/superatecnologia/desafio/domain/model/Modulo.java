@@ -14,9 +14,10 @@ public class Modulo {
     @Id
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 60)
     private String nome;
-    
+
+    @Column(length = 255)
     private String descricao;
 
     @Column(nullable = false)
