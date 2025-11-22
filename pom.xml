@@ -85,6 +85,13 @@
 			<version>3.18.0</version>
 		</dependency>
 
+		<!-- Dependência do H2 para testes -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
