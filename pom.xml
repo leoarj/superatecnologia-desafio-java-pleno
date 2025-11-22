@@ -85,6 +85,13 @@
 			<version>3.18.0</version>
 		</dependency>
 
+		<!-- Dependência do H2 para testes -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -92,6 +99,91 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*IT.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Plugin do JACOCO para análise de cobertura de testes
+			JACOCO opera a nível de byte-code, então, mostrará mais métodos na cobertura.
+			-->
+			<!--
+			 mvn test jacoco:report
+			 Executável fica na pasta target
+			 Relatórios ficam na pasta target/site
+			 -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+				<executions>
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<!-- Baixa o agente -->
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<!-- Momentos de teste (antes de preparar o pacote) -->
+						<phase>prepare-package</phase>
+						<!-- <phase>test</phase> -->
+						<!-- <phase>verify</phase> -->
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+
+					<execution>
+						<id>jacoco-check</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>BUNDLE</element>
+									<limits>
+										<limit>
+											<counter>LINE</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.80</minimum> </limit>
+									</limits>
+								</rule>
+							</rules>
+							<excludes>
+								<exclude>**/SuperaTecnologiaDesafioJavaApplication.class</exclude>
+								<exclude>**/domain/model/**</exclude>
+								<exclude>**/domain/exception/**</exclude>
+
+								<exclude>**/api/**/model/**</exclude>
+								<exclude>**/api/**/model/input/**</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
