@@ -7,7 +7,4 @@ INSERT INTO public.modulo_mutualidade (modulo_id, modulo_mutual_id) VALUES
 
 -- Regra: Administrador RH (6) incompatível com Colaborador RH (7) e vice-versa
 (6, 7),
-(7, 6)
-
--- Como é uma regra do domínio, então se o registro existir não precisa falhar (sempre mesma operação/idempotência)
-ON CONFLICT (modulo_id, modulo_mutual_id) DO NOTHING;
+(7, 6);

@@ -13,9 +13,4 @@ INSERT INTO public.usuario (id, nome, email, departamento_id, hash_senha) VALUES
 (3, 'Carlos RH', 'carlos.rh@empresa.com', 3, '$2a$10$N.zmdr9k7uOCQb376NoUnutj8iAt6aBECYnzhUwpo9tQdnTEQLC.6'),
 
 -- 4. Usuário Operações (Dept 4)
-(4, 'Beto Operações', 'beto.ops@empresa.com', 4, '$2a$10$N.zmdr9k7uOCQb376NoUnutj8iAt6aBECYnzhUwpo9tQdnTEQLC.6')
-
-ON CONFLICT (id) DO NOTHING;
-
--- Reinicia a sequência do ID para o próximo valor correto (porque explicitrou os IDs na inclusão)
-SELECT setval('public.usuario_id_seq', (SELECT MAX(id) FROM public.usuario));
+(4, 'Beto Operações', 'beto.ops@empresa.com', 4, '$2a$10$N.zmdr9k7uOCQb376NoUnutj8iAt6aBECYnzhUwpo9tQdnTEQLC.6');

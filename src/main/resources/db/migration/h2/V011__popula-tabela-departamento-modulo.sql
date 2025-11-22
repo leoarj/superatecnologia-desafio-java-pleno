@@ -14,6 +14,4 @@ INSERT INTO public.departamento_modulo (departamento_id, modulo_id) VALUES
 (4, 1), (4, 2), (4, 8), (4, 9),
 
 -- 5. Outros (Portal, Relatórios)
-(5, 1), (5, 2)
-
-ON CONFLICT (departamento_id, modulo_id) DO NOTHING;
+(5, 1), (5, 2);
