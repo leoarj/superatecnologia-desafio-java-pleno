@@ -1,0 +1,3 @@
+volumes:
+  postgres-data:
+  pgadmin4-data:
