@@ -15,9 +15,6 @@ CREATE TABLE public.usuario_modulo
 COMMENT ON TABLE public.usuario_modulo
   IS 'Tabela para registro de acesso a Módulos concedidos para usuarios.';
 
-ALTER TABLE IF EXISTS public.usuario_modulo
-    OWNER to postgres;
-
 -- Relação entre Usuários e Departamentos (Semelhante a uma associação entre Usuarios e ROLEs/Grupos?)
 
 --create table public.usuario_departamento

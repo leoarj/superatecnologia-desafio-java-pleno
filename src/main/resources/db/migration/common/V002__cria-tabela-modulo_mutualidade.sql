@@ -14,6 +14,3 @@ CREATE TABLE IF NOT EXISTS public.modulo_mutualidade
 
 COMMENT ON TABLE public.modulo_mutualidade
   IS 'Tabela para registro de mutualidade exclusiva entre módulos.';
-
-ALTER TABLE IF EXISTS public.modulo_mutualidade
-    OWNER to postgres;

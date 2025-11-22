@@ -17,9 +17,6 @@ CREATE TABLE public.solicitacao
 COMMENT ON TABLE public.solicitacao
   IS 'Registro da Solicitação de acesso a Módulos para determinado Usuário.';
 
-ALTER TABLE IF EXISTS public.solicitacao
-    OWNER to postgres;
-
 -- Item da Solicitação (Referencia de fato qual Módulo solicitado)
 
 CREATE TABLE public.solicitacao_item
@@ -37,6 +34,3 @@ CREATE TABLE public.solicitacao_item
 
 COMMENT ON TABLE public.solicitacao_item
   IS 'Item da Solicitação (Referencia de fato qual Módulo solicitado).';
-
-ALTER TABLE IF EXISTS public.solicitacao_item
-    OWNER to postgres;

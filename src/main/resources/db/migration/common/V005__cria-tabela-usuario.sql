@@ -17,6 +17,3 @@ CREATE TABLE public.usuario
 
 COMMENT ON TABLE public.usuario
   IS 'Tabela para registro de Usuários, associados a Departamentos e Módulos.';
-
-ALTER TABLE IF EXISTS public.usuario
-    OWNER to postgres;

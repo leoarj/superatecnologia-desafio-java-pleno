@@ -14,6 +14,3 @@ CREATE TABLE public.departamento_modulo
 
 COMMENT ON TABLE public.departamento_modulo
   IS 'Tabela para registro de compatibilidade entre Departamentos e Módulos.';
-
-ALTER TABLE IF EXISTS public.departamento_modulo
-    OWNER to postgres;

@@ -13,6 +13,3 @@ CREATE TABLE public.modulo
 
 COMMENT ON TABLE public.modulo
   IS 'Tabela para registro dos módulos de acesso disponíveis.';
-
-ALTER TABLE IF EXISTS public.modulo
-    OWNER to postgres;
