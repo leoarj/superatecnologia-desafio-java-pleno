@@ -7,7 +7,7 @@ CREATE TABLE public.solicitacao
     justificativa character varying(500) NOT NULL,
     urgente boolean NOT NULL DEFAULT false,
     protocolo character varying(20) NOT NULL,
-    solicitado_em timestamp with time zone NOT NULL,
+    data_solicitacao timestamp with time zone NOT NULL,
     status character varying(20) NOT NULL,
     motivo_rejeicao character varying(255),
 
