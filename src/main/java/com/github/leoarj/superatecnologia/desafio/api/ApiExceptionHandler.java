@@ -1,6 +1,7 @@
 package com.github.leoarj.superatecnologia.desafio.api;
 
 import com.github.leoarj.superatecnologia.desafio.domain.exception.EntidadeNaoEncontradaException;
+import com.github.leoarj.superatecnologia.desafio.domain.exception.NegocioException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -21,6 +22,16 @@ import java.net.URI;
 @AllArgsConstructor
 @RestControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(NegocioException.class)
+    public ProblemDetail handleNegocio(NegocioException e) {
+        //return ResponseEntity.badRequest().body(e.getMessage());
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST); //400
+        problemDetail.setTitle(e.getMessage());
+        problemDetail.setType(URI.create("https://github.leoarj.superatecnologia.desafio.com/erros/regra-de-negocio"));
+
+        return problemDetail;
+    }
 
     @ExceptionHandler(EntidadeNaoEncontradaException.class)
     public ProblemDetail handleEntidadeNaoEncontrada(EntidadeNaoEncontradaException e) {
