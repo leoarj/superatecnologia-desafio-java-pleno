@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -26,6 +29,11 @@ public class Modulo {
     @Column(nullable = false)
     private Boolean disponivel = true;
 
-    // TODO: Criar relacionamento com Departamentos
     // TODO: Criar relacionamento com Módulos incompatíveis
+    // DONE: Criar relacionamento com Departamentos
+    @ManyToMany
+    @JoinTable(name = "departamento_modulo",
+        joinColumns = @JoinColumn(name = "modulo_id"),
+        inverseJoinColumns = @JoinColumn(name = "departamento_id"))
+    private Set<Departamento> departamentosPermitidos = new HashSet<>();
 }
