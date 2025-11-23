@@ -13,7 +13,7 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> 
     // Usuário: Consultar apenas suas próprias solicitações"
     // TODO: Depois externalizar (META-INF/XML) consultas JPQ grandes (+3 linhas)
     @Query("SELECT DISTINCT s FROM Solicitacao s " +
-            "LEFT JOIN FETCH s.modulos " +
+            "LEFT JOIN FETCH s.modulosSolicitados " +
             "WHERE s.usuario.id = :usuarioId")
     List<Solicitacao> findByUsuarioId(Long usuarioId);
 
