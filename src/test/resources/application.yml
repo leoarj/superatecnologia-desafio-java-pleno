@@ -1,0 +1,11 @@
+# Usa um banco em memória (H2) apenas para os testes, recriando a cada execução
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    username: sa
+    password:
+  
+  # O Flyway vai rodar as migrations nesse banco em memória
+  flyway:
+    enabled: true
+    locations: classpath:db/migration/common,classpath:db/migration/h2

@@ -12,6 +12,3 @@ CREATE TABLE public.departamento
 
 COMMENT ON TABLE public.departamento
   IS 'Tabela para registro de departamentos disponíveis associados aos usuários.';
-
-ALTER TABLE IF EXISTS public.departamento
-    OWNER to postgres;
