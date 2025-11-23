@@ -11,11 +11,14 @@ CREATE TABLE public.solicitacao
     data_expiracao timestamp with time zone,
     status character varying(20) NOT NULL,
     motivo_rejeicao character varying(255),
+    solicitacao_anterior_id bigint,
 
     CONSTRAINT pk_solicitacao PRIMARY KEY (id),
     CONSTRAINT fk_solicitacao_usuario FOREIGN KEY (usuario_id)
         REFERENCES public.usuario (id),
-    CONSTRAINT un_solicitacao_protocolo UNIQUE (protocolo)
+    CONSTRAINT un_solicitacao_protocolo UNIQUE (protocolo),
+    CONSTRAINT fk_solicitacao_solicitacao_anterior FOREIGN KEY (solicitacao_anterior_id)
+        REFERENCES public.solicitacao (id)
 );
 
 COMMENT ON TABLE public.solicitacao
