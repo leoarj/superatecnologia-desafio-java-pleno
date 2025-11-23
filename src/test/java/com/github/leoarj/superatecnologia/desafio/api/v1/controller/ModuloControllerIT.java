@@ -37,13 +37,13 @@ class ModuloControllerIT {
                 .get()
                 .then()
                 .statusCode(HttpStatus.OK.value())
-                .body("", hasSize(greaterThanOrEqualTo(10))) // Temos 10 inserts no script
+                .body("", hasSize(greaterThanOrEqualTo(10))) // 10 inserts no script
                 .body("nome", hasItems("Portal do Colaborador", "Gestão Financeira"));
     }
 
     @Test
     void buscar_DeveRetornarModuloCompleto_QuandoIdExistir() {
-        // Testando o módulo 4 (Aprovador Financeiro) que tem relacionamento
+        // Teste: Módulo 4 (Aprovador Financeiro) que tem relacionamento
         Long moduloId = 4L;
 
         given()
