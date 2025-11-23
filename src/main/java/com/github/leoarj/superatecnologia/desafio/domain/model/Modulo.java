@@ -29,11 +29,17 @@ public class Modulo {
     @Column(nullable = false)
     private Boolean disponivel = true;
 
-    // TODO: Criar relacionamento com Módulos incompatíveis
     // DONE: Criar relacionamento com Departamentos
     @ManyToMany
     @JoinTable(name = "departamento_modulo",
         joinColumns = @JoinColumn(name = "modulo_id"),
         inverseJoinColumns = @JoinColumn(name = "departamento_id"))
     private Set<Departamento> departamentosPermitidos = new HashSet<>();
+
+    // DONE: Criar relacionamento com Módulos incompatíveis
+    @ManyToMany
+    @JoinTable(name = "modulo_mutualidade",
+        joinColumns = @JoinColumn(name = "modulo_id"),
+        inverseJoinColumns = @JoinColumn(name = "modulo_mutual_id"))
+    private Set<Modulo> modulosIncompativeis = new HashSet<>();
 }
