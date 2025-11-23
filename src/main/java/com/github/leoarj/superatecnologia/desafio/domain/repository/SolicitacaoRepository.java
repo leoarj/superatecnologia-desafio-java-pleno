@@ -1,6 +1,8 @@
 package com.github.leoarj.superatecnologia.desafio.domain.repository;
 
 import com.github.leoarj.superatecnologia.desafio.domain.model.Solicitacao;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,6 +17,6 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> 
     @Query("SELECT DISTINCT s FROM Solicitacao s " +
             "LEFT JOIN FETCH s.modulosSolicitados " +
             "WHERE s.usuario.id = :usuarioId")
-    List<Solicitacao> findByUsuarioId(Long usuarioId);
+    Page<Solicitacao> findByUsuarioId(Long usuarioId, Pageable pageable);
 
 }

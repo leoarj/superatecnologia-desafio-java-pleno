@@ -9,6 +9,9 @@ import com.github.leoarj.superatecnologia.desafio.domain.repository.SolicitacaoR
 import com.github.leoarj.superatecnologia.desafio.domain.service.CadastroSolicitacaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +28,14 @@ public class SolicitacaoController {
     private final SolicitacaoResponseAssembler solicitacaoResponseAssembler;
 
     @GetMapping
-    public List<SolicitacaoResponse> listar(@PathVariable Long usuarioId) {
-        return solicitacaoResponseAssembler.toCollectionModel(solicitacaoRepository.findByUsuarioId(usuarioId));
+    public Page<SolicitacaoResponse> listar(@PathVariable Long usuarioId,
+                                            @PageableDefault(size = 10) Pageable pageable) {
+
+        Page<Solicitacao> solicitacoesPage = cadastroSolicitacaoService.listar(usuarioId, pageable);
+
+
+        //return solicitacaoResponseAssembler.toCollectionModel();
+        return solicitacoesPage.map(solicitacaoResponseAssembler::toModel);
     }
 
     @PostMapping

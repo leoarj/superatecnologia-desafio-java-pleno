@@ -11,6 +11,8 @@ import com.github.leoarj.superatecnologia.desafio.domain.repository.SolicitacaoR
 import com.github.leoarj.superatecnologia.desafio.domain.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +31,10 @@ public class CadastroSolicitacaoService {
     private final CadastroUsuarioService cadastroUsuarioService;
     private final ModuloRepository moduloRepository;
     private final UsuarioRepository usuarioRepository; // Para atualizar permissões
+
+    public Page<Solicitacao> listar(Long usuarioId, Pageable pageable) {
+        return solicitacaoRepository.findByUsuarioId(usuarioId, pageable);
+    }
 
     @Transactional
     public Solicitacao solicitar(Long usuarioId, Solicitacao solicitacao) {
