@@ -27,7 +27,7 @@ public class Solicitacao {
     @JoinTable(name = "solicitacao_modulo",
             joinColumns = @JoinColumn(name = "solicitacao_id"),
             inverseJoinColumns = @JoinColumn(name = "modulo_id"))
-    private Set<Modulo> modulos = new HashSet<>();
+    private Set<Modulo> modulosSolicitados = new HashSet<>();
 
     @Column(nullable = false, length = 500)
     private String justificativa;
@@ -38,7 +38,10 @@ public class Solicitacao {
     @Column(nullable = false, unique = true)
     private String protocolo;
 
-    private OffsetDateTime solicitadoEm;
+    @Column(nullable = false)
+    private OffsetDateTime dataSolicitacao = OffsetDateTime.now();
+
+    private OffsetDateTime dataExpiracao;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -46,8 +49,12 @@ public class Solicitacao {
 
     private String motivoRejeicao;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "solicitacao_anterior_id")
+    private Solicitacao solicitacaoAnterior;
+
     //  DDD: Métodos utilitários para adicionar módulos
     public void adicionarModulo(Modulo modulo) {
-        this.modulos.add(modulo);
+        this.modulosSolicitados.add(modulo);
     }
 }
