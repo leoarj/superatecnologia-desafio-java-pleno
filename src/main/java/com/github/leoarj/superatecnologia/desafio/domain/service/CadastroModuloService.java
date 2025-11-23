@@ -18,6 +18,10 @@ public class CadastroModuloService {
         return moduloRepository.findAll();
     }
 
+    public List<Modulo> listarComRelacionamentos() {
+        return moduloRepository.findAllComRelacionamentos();
+    }
+
     public Modulo buscarOuFalhar(Long moduloId) {
         return moduloRepository.findById(moduloId)
                 .orElseThrow(() -> new ModuloNaoEncontradoException(moduloId));

@@ -22,7 +22,7 @@ public class ModuloController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ModuloResponse> listarTodos() {
-        return moduloResponseAssembler.toCollectionModel(moduloService.listar());
+        return moduloResponseAssembler.toCollectionModel(moduloService.listarComRelacionamentos());
     }
 
     @GetMapping(path = "/{moduloId}", produces = MediaType.APPLICATION_JSON_VALUE)
