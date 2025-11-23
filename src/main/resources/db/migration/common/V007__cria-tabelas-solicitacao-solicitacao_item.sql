@@ -8,6 +8,7 @@ CREATE TABLE public.solicitacao
     urgente boolean NOT NULL DEFAULT false,
     protocolo character varying(20) NOT NULL,
     data_solicitacao timestamp with time zone NOT NULL,
+    data_expiracao timestamp with time zone,
     status character varying(20) NOT NULL,
     motivo_rejeicao character varying(255),
 
