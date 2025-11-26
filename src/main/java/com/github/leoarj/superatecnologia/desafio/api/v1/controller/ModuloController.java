@@ -2,6 +2,7 @@ package com.github.leoarj.superatecnologia.desafio.api.v1.controller;
 
 import com.github.leoarj.superatecnologia.desafio.api.v1.model.ModuloResponse;
 import com.github.leoarj.superatecnologia.desafio.api.v1.assembler.ModuloResponseAssembler;
+import com.github.leoarj.superatecnologia.desafio.api.v1.openapi.ModuloControllerOpenApi;
 import com.github.leoarj.superatecnologia.desafio.domain.service.CadastroModuloService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -15,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/v1/modulos")
-public class ModuloController {
+public class ModuloController implements ModuloControllerOpenApi {
 
     private final CadastroModuloService moduloService;
     private final ModuloResponseAssembler moduloResponseAssembler;
