@@ -6,6 +6,8 @@ CREATE TABLE public.departamento
     nome character varying(60) NOT NULL,
     descricao character varying(255),
     ativo boolean,
+    limite_modulos int NOT NULL DEFAULT 5,
+
     CONSTRAINT pk_departamento PRIMARY KEY (id),
     CONSTRAINT un_departamento_nome UNIQUE (nome)
 );
