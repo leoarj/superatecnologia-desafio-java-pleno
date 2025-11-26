@@ -13,16 +13,247 @@
 				{
 					"name": "Listar",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTdXBlcmFUZWNub2xvZ2lhQVBJIiwic3ViIjoiYWRtaW4udGlAZW1wcmVzYS5jb20iLCJpZCI6MSwibm9tZSI6IkFkbWluIFRJIiwiZXhwIjoxNzY0MjAxNjE0fQ.Owczdi7GAVViDZHH-Oxu4rZ1V7x7GrzkUfO0Thhs2Vc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/v1/temperatures",
+							"raw": "{{base_url_proxy}}/v1/modulos",
 							"host": [
-								"{{base_url}}"
+								"{{base_url_proxy}}"
 							],
 							"path": [
 								"v1",
-								"temperatures"
+								"modulos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuários/Solicitações",
+			"item": [
+				{
+					"name": "Listar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTdXBlcmFUZWNub2xvZ2lhQVBJIiwic3ViIjoiYWRtaW4udGlAZW1wcmVzYS5jb20iLCJpZCI6MSwibm9tZSI6IkFkbWluIFRJIiwiZXhwIjoxNzY0MjAxNjE0fQ.Owczdi7GAVViDZHH-Oxu4rZ1V7x7GrzkUfO0Thhs2Vc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_proxy}}/v1/usuarios/1/solicitacoes",
+							"host": [
+								"{{base_url_proxy}}"
+							],
+							"path": [
+								"v1",
+								"usuarios",
+								"1",
+								"solicitacoes"
+							],
+							"query": [
+								{
+									"key": "protocolo",
+									"value": "SOL-TEST-0001",
+									"disabled": true
+								},
+								{
+									"key": "justificativa",
+									"value": "Acesso padrão",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "ATIVO",
+									"disabled": true
+								},
+								{
+									"key": "urgente",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "dataCriacaoInicio",
+									"value": "2025-11-13",
+									"disabled": true
+								},
+								{
+									"key": "dataCriacaoFim",
+									"value": "2025-11-18",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "dataSolicitacao,asc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTdXBlcmFUZWNub2xvZ2lhQVBJIiwic3ViIjoiYWRtaW4udGlAZW1wcmVzYS5jb20iLCJpZCI6MSwibm9tZSI6IkFkbWluIFRJIiwiZXhwIjoxNzY0MTIxMzk1fQ.hqc_7Pkf9O_JJ_uxgD30FM2LJlcyc-ut37E8F81xalU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_proxy}}/v1/usuarios/1/solicitacoes/1004",
+							"host": [
+								"{{base_url_proxy}}"
+							],
+							"path": [
+								"v1",
+								"usuarios",
+								"1",
+								"solicitacoes",
+								"1004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solicitar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTdXBlcmFUZWNub2xvZ2lhQVBJIiwic3ViIjoiYWRtaW4udGlAZW1wcmVzYS5jb20iLCJpZCI6MSwibm9tZSI6IkFkbWluIFRJIiwiZXhwIjoxNzY0MTY4ODY1fQ.m59q0JM_40fV4jMT-hD0mhSrqkeBDNwzbDJrS8ZcC9Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"modulosSolicitados\": [\n        {\n            \"id\": 1\n        }\n    ],\n    \"justificativa\": \"Preciso de acesso para fechamento mensal da folha.\",\n    \"urgente\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_proxy}}/v1/usuarios/1/solicitacoes",
+							"host": [
+								"{{base_url_proxy}}"
+							],
+							"path": [
+								"v1",
+								"usuarios",
+								"1",
+								"solicitacoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelamento",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJTdXBlcmFUZWNub2xvZ2lhQVBJIiwic3ViIjoiYWRtaW4udGlAZW1wcmVzYS5jb20iLCJpZCI6MSwibm9tZSI6IkFkbWluIFRJIiwiZXhwIjoxNzY0MTk0MzA5fQ.cxk8WzQoP-s98F4A7g7gPb1PIAWX8n-LNZt5OxFlFew",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"motivo\": \"Não atuo mais neste projeto, solicitando cancelamento.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_proxy}}/v1/usuarios/1/solicitacoes/1004/cancelamento",
+							"host": [
+								"{{base_url_proxy}}"
+							],
+							"path": [
+								"v1",
+								"usuarios",
+								"1",
+								"solicitacoes",
+								"1004",
+								"cancelamento"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin.ti@empresa.com\",\n    \"senha\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_proxy}}/v1/auth/login",
+							"host": [
+								"{{base_url_proxy}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
 							]
 						}
 					},
@@ -58,7 +289,11 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:8082"
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "base_url_proxy",
+			"value": "http://localhost"
 		}
 	]
 }
