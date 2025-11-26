@@ -9,3 +9,9 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration/common,classpath:db/migration/h2
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:123456} # Em prod usa var de ambiente
+      expiration-minutes: 15
