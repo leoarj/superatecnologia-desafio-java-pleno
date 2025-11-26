@@ -3,6 +3,7 @@ package com.github.leoarj.superatecnologia.desafio.domain.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +31,7 @@ public class Usuario {
     @JoinColumn(name = "departamento_id", nullable = false)
     private Departamento departamento;
 
+    @ToString.Exclude
     @ManyToMany
     @JoinTable(name = "usuario_modulo",
             joinColumns = @JoinColumn(name = "usuario_id"),
