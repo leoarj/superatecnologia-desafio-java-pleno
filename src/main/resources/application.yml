@@ -1,6 +1,6 @@
 spring:
   application:
-    name: algaworks-idk-devcontainers-examples-meteorology
+    name: superatecnologia-desafio-java-pleno
 
   # Não definidos valores alternativos para as variáveis (${VARIAVEL:VALOR_ALTERNATIVO}),
   # para não serem utilizados indevidamente em PRODUÇÃO caso as variáveis não sejam definidas no ambiente.
@@ -36,3 +36,9 @@ spring:
       # Se carregar dev-local o dev também é carregado
       dev-local:
         - dev
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:123456} # Em prod usa var de ambiente
+      expiration-minutes: 15
