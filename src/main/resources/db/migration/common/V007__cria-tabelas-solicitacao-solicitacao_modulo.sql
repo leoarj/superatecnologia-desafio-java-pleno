@@ -12,6 +12,7 @@ CREATE TABLE public.solicitacao
     status character varying(20) NOT NULL,
     motivo_rejeicao character varying(255),
     solicitacao_anterior_id bigint,
+    motivo_cancelamento character varying(200),
 
     CONSTRAINT pk_solicitacao PRIMARY KEY (id),
     CONSTRAINT fk_solicitacao_usuario FOREIGN KEY (usuario_id)
