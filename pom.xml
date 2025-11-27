@@ -11,8 +11,8 @@
 	<groupId>com.github.leoarj</groupId>
 	<artifactId>superatecnologia-desafio-java</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>superatecnologia-desafio-vaga-java-pleno</name>
-	<description>Projeto do desafio para vaga Java Pleno</description>
+	<name>superatecnologia-desafio-java-pleno</name>
+	<description>Projeto do desafio para desenvolvedor Java Pleno</description>
 	<url/>
 	<licenses>
 		<license/>
