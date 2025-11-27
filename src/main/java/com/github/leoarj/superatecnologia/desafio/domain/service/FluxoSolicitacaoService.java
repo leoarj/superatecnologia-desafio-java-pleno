@@ -2,6 +2,7 @@ package com.github.leoarj.superatecnologia.desafio.domain.service;
 
 import com.github.leoarj.superatecnologia.desafio.domain.exception.NegocioException;
 import com.github.leoarj.superatecnologia.desafio.domain.exception.SolicitacaoNaoEncontradaException;
+import com.github.leoarj.superatecnologia.desafio.domain.filter.SolicitacaoFilter;
 import com.github.leoarj.superatecnologia.desafio.domain.model.Modulo;
 import com.github.leoarj.superatecnologia.desafio.domain.model.Solicitacao;
 import com.github.leoarj.superatecnologia.desafio.domain.model.StatusSolicitacao;
@@ -9,8 +10,11 @@ import com.github.leoarj.superatecnologia.desafio.domain.model.Usuario;
 import com.github.leoarj.superatecnologia.desafio.domain.repository.ModuloRepository;
 import com.github.leoarj.superatecnologia.desafio.domain.repository.SolicitacaoRepository;
 import com.github.leoarj.superatecnologia.desafio.domain.repository.UsuarioRepository;
+import com.github.leoarj.superatecnologia.desafio.infrastructure.repository.spec.SolicitacaoSpecs;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,14 +25,28 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Fluxo de Solicitação.
+ *
+ * Melhorias: Extrair regras espalhadas para classes separadas.
+ * */
 @Service
 @RequiredArgsConstructor
-public class CadastroSolicitacaoService {
+public class FluxoSolicitacaoService {
 
     private final SolicitacaoRepository solicitacaoRepository;
     private final CadastroUsuarioService cadastroUsuarioService;
     private final ModuloRepository moduloRepository;
     private final UsuarioRepository usuarioRepository; // Para atualizar permissões
+
+    public Page<Solicitacao> listar(Long usuarioId, SolicitacaoFilter filtro, Pageable pageable) {
+        return solicitacaoRepository.findAll(SolicitacaoSpecs.usandoFiltro(filtro, usuarioId), pageable);
+    }
+
+    public Solicitacao buscarOuFalhar(Long usuarioId, Long solicitacaoId) {
+        return solicitacaoRepository.findByIdComRelacionamentos(usuarioId, solicitacaoId)
+                .orElseThrow(() -> new SolicitacaoNaoEncontradaException(solicitacaoId));
+    }
 
     @Transactional
     public Solicitacao solicitar(Long usuarioId, Solicitacao solicitacao) {
@@ -37,7 +55,7 @@ public class CadastroSolicitacaoService {
                 .map(Modulo::getId)
                 .toList();
 
-        // 2. Validar Input e Carregar Dados
+        // 2. Validar e Carregar Dados
         validarJustificativa(solicitacao.getJustificativa());
         Usuario usuario = cadastroUsuarioService.buscarOuFalhar(usuarioId);
 
@@ -83,6 +101,34 @@ public class CadastroSolicitacaoService {
 
         // Processa regras novamente (pois o cenário pode ter mudado: módulo inativado, etc)
         return processarRegrasESalvar(novaSolicitacao, usuario, List.copyOf(novaSolicitacao.getModulosSolicitados()));
+    }
+
+    @Transactional
+    public void cancelar(Long usuarioId, Long solicitacaoId, String motivo) {
+        // 1. Busca a solicitação e garante que é do usuário logado
+        Solicitacao solicitacao = buscarOuFalhar(usuarioId, solicitacaoId);
+
+        // 2. Valida Status (Só pode cancelar se estiver ATIVA)
+        if (!StatusSolicitacao.ATIVO.equals(solicitacao.getStatus())) {
+            throw new NegocioException(
+                    String.format("Solicitação com status %s não pode ser cancelada.", solicitacao.getStatus()));
+        }
+
+        // 3. Aplica o Cancelamento
+        solicitacao.setStatus(StatusSolicitacao.CANCELADO);
+        solicitacao.setMotivoCancelamento(motivo); // Lembre de adicionar o campo na Entidade Solicitacao
+
+        // 4. Revogação Imediata
+        // Proteger também filtro por data
+        solicitacao.setDataExpiracao(OffsetDateTime.now());
+
+        // Revoga o acesso a módulos feitos na soliciação
+        // TODO Passar comportamento para o domain de usuário
+        solicitacao.getUsuario()
+                .getModulosConcedidos()
+                .removeAll(solicitacao.getModulosSolicitados());
+
+        solicitacaoRepository.save(solicitacao);
     }
 
     private Solicitacao instanciarNovaSolicitacao(Usuario usuario, String justificativa, boolean urgente) {
@@ -134,9 +180,29 @@ public class CadastroSolicitacaoService {
         }
     }
 
+    private void validarQuantidadeLimiteModulos(Usuario usuario, Solicitacao solicitacao) {
+        int usuarioQuantidadeAtualModulos = usuario.getModulosConcedidos().size();
+        int solicitacaoQuantidadeModulos = solicitacao.getModulosSolicitados().size();
+        int departamentoQuantidadeLimiteModulos = usuario.getDepartamento().getLimiteModulos();
+
+        if (usuarioQuantidadeAtualModulos + solicitacaoQuantidadeModulos > departamentoQuantidadeLimiteModulos) {
+            throw new NegocioException(
+                    String.format("Limite de módulos excedido. Seu departamento permite %d, você tem %d e solicitou mais %d.",
+                            departamentoQuantidadeLimiteModulos, usuarioQuantidadeAtualModulos, solicitacaoQuantidadeModulos));
+        }
+    }
+
     private void analisarSolicitacao(Solicitacao solicitacao, Usuario usuario, List<Modulo> modulos) {
         // Por padrão, aprovada. Se falhar em algo, negada.
         solicitacao.setStatus(StatusSolicitacao.ATIVO);
+
+        // Validar quantidade limite de módulos de acordo com o Departamento do Usuário e Módulos da Solicitação.
+        // Validação geral.
+        try {
+            validarQuantidadeLimiteModulos(usuario, solicitacao);
+        } catch (NegocioException e) {
+            negar(solicitacao, e.getMessage());
+        }
 
         // Verifica se é um contexto de renovação baseado no estado do objeto
         boolean isRenovacao = solicitacao.getSolicitacaoAnterior() != null;

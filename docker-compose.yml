@@ -1,0 +1,55 @@
+include:
+  - docker-compose-network.yml
+  - docker-compose-volume.yml
+
+services:
+  postgres:
+    extends:
+      file: docker-compose-tools.yml
+      service: postgres
+
+  postgres-db-pgadmin4:
+    extends:
+      file: docker-compose-tools.yml
+      service: postgres-db-pgadmin4
+
+  # 3. Proxy Nginx
+  supera-api-proxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: supera-api-proxy
+    depends_on:
+      - supera-api
+    ports:
+      - "80:80" # Acessaremos via localhost (sem porta)
+    networks:
+      - devnet
+
+  supera-api:
+    build:
+      context: .
+      dockerfile: maven-multistage.Dockerfile
+    # container_name: supera-api
+    # ports:
+      # - "${SERVER_PORT}:${SERVER_PORT}"
+      # - "${JAVA_DEBUG_WIRE_PROTOCOL_PORT}:${JAVA_DEBUG_WIRE_PROTOCOL_PORT}"
+    env_file:
+      - .env
+    networks:
+      - devnet
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "sh", "-c", "curl -f http://localhost:8082/actuator/health | grep -i UP || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G

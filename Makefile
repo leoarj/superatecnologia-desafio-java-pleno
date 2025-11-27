@@ -56,7 +56,7 @@ reset-dev:
 ## ========================
 
 up-prod:
-	docker compose -f $(PROD_COMPOSE_FILE) up -d
+	docker compose -f $(PROD_COMPOSE_FILE) up --build --scale supera-api=3
 
 down-prod:
 	docker compose -f $(PROD_COMPOSE_FILE) down

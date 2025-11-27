@@ -23,4 +23,7 @@ public class Departamento {
     @Column(nullable = false)
     private Boolean ativo = true;
 
+    @Column(nullable = false)
+    private Integer limiteModulos;
+
 }

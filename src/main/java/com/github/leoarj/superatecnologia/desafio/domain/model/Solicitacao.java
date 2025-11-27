@@ -53,6 +53,8 @@ public class Solicitacao {
     @JoinColumn(name = "solicitacao_anterior_id")
     private Solicitacao solicitacaoAnterior;
 
+    private String motivoCancelamento;
+
     //  DDD: Métodos utilitários para adicionar módulos
     public void adicionarModulo(Modulo modulo) {
         this.modulosSolicitados.add(modulo);
