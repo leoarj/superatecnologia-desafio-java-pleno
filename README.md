@@ -61,11 +61,11 @@ Utiliza referências de:
 
 - Realize o clone do repositório:
     ```console
-	git clone https://github.com/leoarj/algaworks-idk.git
+	git clone https://github.com/leoarj/superatecnologia-desafio-java-pleno.git
 	```
-- Abra o projeto no VS Code:
+- Acesse a pasta do projeto:
     ```console
-	code algaworks-idk/devcontainers-example-meteorology
+	cd superatecnologia-desafio-java-pleno
 	```
 
 ## Como executar
@@ -82,9 +82,15 @@ Devido ser uma aplicação containerizada, a forma mais fácil de executar este 
 - Demais dependências: Automaticamente gerenciadas pelo build dos containers.
 
 #### Configuração de variáveis de ambiente
-- Copiar o arquivo `.env.template` e renomear a cópia para apenas `.env` e substituir os valores necessários.
-	>As variáveis que devem ser configuradas estão documentadas dentro do arquivo.
 
+- Renomear o arquivo de template do `.env` pelo terminal:
+    ```console
+	mv .env.template .env
+	```
+
+- Ou copiar o arquivo `.env.template` e renomear a cópia para apenas `.env` e substituir os valores necessários.
+	>As variáveis que devem ser configuradas estão documentadas dentro do arquivo.
+  
 ### Com build da imagem e proxy
 
 (Simulando Ambiente de Produção - Com containerização - Com proxy - Com provisionamento de 3 instâncias)
