@@ -213,7 +213,7 @@ Caso deseje apenas rodar os testes separadamente, seguem os comandos necessário
 - Suíte completa (Unitários e de integração):
 	- `./mvnw verify`
 - Visualização do relatório JaCoCo:
- - [Relatório JaCoCo](target/site/jacoco/index.html)
+ - [Relatório JaCoCo em PDF](docs/superatecnologia-desafio-java-pleno.pdf)
 
 ## (Opcional) - Acessando a interface de gerenciamento do banco de dados ***PgAdmin***
 
